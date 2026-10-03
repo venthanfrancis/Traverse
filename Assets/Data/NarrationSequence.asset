@@ -87,3 +87,7 @@ MonoBehaviour:
     lines:
     - An old telescope. It's pointing at nothing.
     - Press E to align it. It may reveal a shortcut.
+  - beat: 23
+    lines:
+    - This is the Anchor. It's cold and silent.
+    - The three smaller anchors must wake it first. Restore them in order.
