@@ -8,7 +8,7 @@ namespace Drift
     {
         private static GUIStyle label;
         private static readonly Color PanelColor = new Color(.025f, .035f, .055f, .88f);
-        private static readonly Color AccentColor = new Color(.2f, .8f, 1f, 1f);
+        private static readonly Color AccentColor = new Color(1f, 1f, 1f, .55f);
 
         public static float Scale => Mathf.Clamp(Screen.height / 1080f, .75f, 3f);
 
@@ -20,8 +20,8 @@ namespace Drift
             Color previous = GUI.color;
             GUI.color = new Color(PanelColor.r, PanelColor.g, PanelColor.b, PanelColor.a * previous.a);
             GUI.DrawTexture(rect, Texture2D.whiteTexture);
-            GUI.color = new Color(AccentColor.r, AccentColor.g, AccentColor.b, previous.a);
-            GUI.DrawTexture(new Rect(rect.x, rect.y, rect.width, Mathf.Max(2f, Px(3f))), Texture2D.whiteTexture);
+            GUI.color = new Color(AccentColor.r, AccentColor.g, AccentColor.b, AccentColor.a * previous.a);
+            GUI.DrawTexture(new Rect(rect.x, rect.y, rect.width, Mathf.Max(1f, Px(1.5f))), Texture2D.whiteTexture);
             GUI.color = previous;
         }
 
