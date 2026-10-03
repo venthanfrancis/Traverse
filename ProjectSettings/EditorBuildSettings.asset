@@ -6,8 +6,14 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 99c9720ab356a0642a771bea13969a05
+    path: Assets/Scenes/MainMenu.unity
+    guid: 2ecddb55fc1a1974284839ea2c886f3d
+  - enabled: 1
+    path: Assets/Scenes/Cave.unity
+    guid: 753a09a8c335b6042a5720816112fd54
+  - enabled: 1
+    path: Assets/Scenes/BrokenWorld.unity
+    guid: 7feb7cf8f8014564997e25894080aaed
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
