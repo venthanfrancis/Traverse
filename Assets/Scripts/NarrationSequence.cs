@@ -30,6 +30,7 @@ public class NarrationSequence : ScriptableObject
         NodeIntro = 20,
         NodeLocation = 21,
         TelescopeHint = 22,
+        AnchorDormant = 23,
     }
 
     [System.Serializable]
