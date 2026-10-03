@@ -368,9 +368,12 @@ namespace Drift
 
                 GUILayout.EndArea();
             }
-            else if (Phase == GamePhase.Opening && Time.unscaledTime < tutorialUntil && !openingSequence.IsTransitioning)
-                GUI.Label(new Rect(180f, 20f, 600f, 40f), "WASD — MOVE     SPACE — JUMP     SHIFT — SPRINT     ESC — PAUSE", labelStyle);
             GUI.matrix = previous;
+            if (Phase == GamePhase.Opening && !IsPaused && Time.unscaledTime < tutorialUntil && !openingSequence.IsTransitioning)
+            {
+                float width = Mathf.Min(Hud.Px(1180f), Screen.width - 24f);
+                Hud.Box(new Rect((Screen.width - width) * 0.5f, Hud.Px(148f), width, Hud.Px(72f)), "WASD — MOVE     SPACE — JUMP     SHIFT — SPRINT     ESC — PAUSE", 32f);
+            }
         }
     }
 }

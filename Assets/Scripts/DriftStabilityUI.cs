@@ -7,7 +7,6 @@ namespace Drift
     {
         [SerializeField]
         private RealityManager realityManager;
-        private GUIStyle labelStyle;
         private float opacity, lastStability, lastRemaining;
         private void Update()
         {
@@ -41,34 +40,29 @@ namespace Drift
         {
             if (Time.timeScale <= 0f || realityManager == null || opacity <= 0f)
                 return;
-            if (labelStyle == null)
-                labelStyle = new GUIStyle(GUI.skin.label)
-                {
-                    alignment = TextAnchor.MiddleCenter,
-                    fontSize = 18
-                };
             float remaining = lastRemaining;
             bool critical = remaining <= 3f;
             bool warning = remaining <= 5f;
             string title = "DRIFT STABILITY";
-            float width = Mathf.Min(360f, Screen.width - 24f);
-            float left = (Screen.width - width) * 0.5f;
+            // Top right, so it never overlaps the objective panel (top left).
+            float width = Mathf.Min(Hud.Px(560f), Screen.width * 0.45f);
+            float left = Screen.width - width - Hud.Px(24f);
+            float pad = Hud.Px(20f);
             Color previous = GUI.color;
-            float top = Screen.height - 155f;
-            GUI.color = new Color(.025f, .035f, .055f, opacity * .85f);
-            GUI.DrawTexture(new Rect(left, top, width, 64f), Texture2D.whiteTexture);
+            float top = Hud.Px(24f);
             GUI.color = new Color(1, 1, 1, opacity);
-            GUI.Label(new Rect(left, top + 2f, width, 24f), title, labelStyle);
+            Hud.Panel(new Rect(left, top, width, Hud.Px(116f)));
+            Hud.Label(new Rect(left, top + Hud.Px(8f), width, Hud.Px(36f)), title, 28f);
             GUI.color = new Color(.12f, .16f, .18f, opacity);
-            GUI.DrawTexture(new Rect(left + 12f, top + 30f, width - 24f, 5f), Texture2D.whiteTexture);
+            GUI.DrawTexture(new Rect(left + pad, top + Hud.Px(52f), width - pad * 2f, Hud.Px(12f)), Texture2D.whiteTexture);
             Color bar = critical ? Color.red : warning ? new Color(1f, 0.65f, 0.1f) : Color.cyan;
             if (warning)
                 bar *= 0.65f + 0.35f * Mathf.Abs(Mathf.Sin(Time.unscaledTime * (critical ? 12f : 5f)));
             bar.a = opacity;
             GUI.color = bar;
-            GUI.DrawTexture(new Rect(left + 12f, top + 30f, (width - 24f) * lastStability, 5f), Texture2D.whiteTexture);
+            GUI.DrawTexture(new Rect(left + pad, top + Hud.Px(52f), (width - pad * 2f) * lastStability, Hud.Px(12f)), Texture2D.whiteTexture);
             GUI.color = new Color(1, 1, 1, opacity);
-            GUI.Label(new Rect(left, top + 37f, width, 24f), $"{remaining:0.0}s", labelStyle);
+            Hud.Label(new Rect(left, top + Hud.Px(70f), width, Hud.Px(36f)), $"{remaining:0.0}s", 30f);
             GUI.color = previous;
         }
     }
