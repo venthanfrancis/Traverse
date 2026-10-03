@@ -66,7 +66,7 @@ namespace Drift
             }
 
             age += Time.deltaTime;
-            bool activeReaction = corrupted && opening.IsTransitioning;
+            bool activeReaction = opening.IsTransitioning && opening.Initiator == gameObject;
             if (activeReaction && !reacting)
             {
                 reacting = true;

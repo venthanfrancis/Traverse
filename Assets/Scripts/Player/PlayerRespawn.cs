@@ -1,4 +1,5 @@
 using UnityEngine;
+using Beat = NarrationSequence.NarrationBeats;
 
 namespace Drift
 {
@@ -31,7 +32,10 @@ namespace Drift
         {
             // The opening owns its explicit transition. Respawn starts after ability unlock.
             if (realityManager.CanDrift && movement.enabled && transform.position.y < fallHeight)
+            {
                 Respawn();
+                NarrationManager.Announce(Beat.Respawned);
+            }
         }
 
         public void SetCheckpoint(Transform checkpoint)

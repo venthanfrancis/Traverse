@@ -1,4 +1,5 @@
 using UnityEngine;
+using Beat = NarrationSequence.NarrationBeats;
 
 namespace Drift
 {
@@ -15,6 +16,7 @@ namespace Drift
             reached = true;
             player.SetCheckpoint(spawnPoint != null ? spawnPoint : transform);
             player.GetComponent<PlayerInteraction>()?.ShowMessage("Checkpoint", 2f);
+            NarrationManager.Announce(Beat.CheckpointReached);
         }
     }
 }

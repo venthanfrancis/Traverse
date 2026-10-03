@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
+using Beat = NarrationSequence.NarrationBeats;
 
 namespace Drift
 {
@@ -61,6 +62,7 @@ namespace Drift
                 RemainingDriftTime = Mathf.Max(0f, RemainingDriftTime - Time.deltaTime);
                 if (RemainingDriftTime <= 0f)
                 {
+                    NarrationManager.Announce(Beat.DriftExpired);
                     ReturnToBroken();
                     return; // An expiry-frame Q press cannot immediately restart the timer.
                 }
@@ -77,7 +79,11 @@ namespace Drift
             if (IsDrifting)
                 ReturnToBroken();
             else
+            {
                 BeginDrift();
+                if (IsDrifting)
+                    NarrationManager.Announce(Beat.DriftTimerExplained);
+            }
         }
 
         public void BeginDrift()

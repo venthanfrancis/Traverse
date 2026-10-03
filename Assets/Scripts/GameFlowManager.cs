@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using Beat = NarrationSequence.NarrationBeats;
 
 namespace Drift
 {
@@ -162,6 +163,7 @@ namespace Drift
                 return;
             Phase = GamePhase.FinalEscape;
             audioManager.PlayAnchor();
+            NarrationManager.Announce(Beat.EscapeStart);
         }
 
         public void EscapeThroughPortal()
@@ -200,6 +202,7 @@ namespace Drift
             yield return fade.FadeIn(0.9f);
             Phase = GamePhase.EndingWalk;
             SetControl(true);
+            NarrationManager.Announce(Beat.ReturnHome, 1f);
         }
 
         public void FinishEnding()

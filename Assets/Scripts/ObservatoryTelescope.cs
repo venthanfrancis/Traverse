@@ -1,4 +1,5 @@
 using UnityEngine;
+using Beat = NarrationSequence.NarrationBeats;
 
 namespace Drift
 {
@@ -27,6 +28,7 @@ namespace Drift
                     seal.SetActive(false);
             if (discoverySound != null)
                 GetComponent<AudioSource>().PlayOneShot(discoverySound, .5f);
+            NarrationManager.Announce(Beat.TelescopeAligned);
         }
     }
 }

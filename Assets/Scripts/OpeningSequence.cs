@@ -35,6 +35,8 @@ namespace Drift
         private float fadeTime = 0.65f;
         public bool IsTransitioning { get; private set; }
         public bool HasArrived { get; private set; }
+        // The orb the player used, so only that orb reacts to the transition.
+        public GameObject Initiator { get; private set; }
 
         private void Start()
         {
@@ -54,34 +56,48 @@ namespace Drift
 
         public void BeginTransition()
         {
-            if (!isActiveAndEnabled || HasArrived || IsTransitioning)
-                return;
-            StartCoroutine(Transition());
+            BeginTransition(null, RealityManager.Dimension.Broken, null, null);
         }
 
-        private IEnumerator Transition()
+        // Light and particles default to the corrupted orb's when null.
+        public void BeginTransition(GameObject initiator, RealityManager.Dimension startIn, Light light, ParticleSystem particles)
+        {
+            if (!isActiveAndEnabled || HasArrived || IsTransitioning)
+                return;
+            Initiator = initiator;
+            StartCoroutine(Transition(startIn, light != null ? light : artifactLight, particles != null ? particles : artifactParticles));
+        }
+
+        private IEnumerator Transition(RealityManager.Dimension startIn, Light light, ParticleSystem particles)
         {
             IsTransitioning = true;
             playerInteraction.InputEnabled = false;
             playerMovement.enabled = false;
             // Freeze the current framing during the reaction rather than accepting mouse input.
             playerCamera.enabled = false;
-            if (artifactLight != null)
-                playerCamera.transform.LookAt(artifactLight.transform.position);
+            if (light != null)
+                playerCamera.transform.LookAt(light.transform.position);
             realityManager.SetDriftUnlocked(false);
-            if (artifactParticles != null)
-                artifactParticles.Play();
+            if (particles != null)
+                particles.Play();
             float elapsed = 0f;
             while (elapsed < reactionTime)
             {
                 elapsed += Time.unscaledDeltaTime;
-                if (artifactLight != null)
-                    artifactLight.intensity = 3f + Mathf.Abs(Mathf.Sin(elapsed * 25f)) * 7f;
+                if (light != null)
+                    light.intensity = 3f + Mathf.Abs(Mathf.Sin(elapsed * 25f)) * 7f;
                 yield return null;
             }
 
             yield return screenFade.FadeOut(fadeTime);
             realityManager.ArriveInBrokenWorld();
+            if (startIn == RealityManager.Dimension.Normal)
+            {
+                // Flip while the screen is still black. The normal world keeps its usual drift timer.
+                realityManager.SetDriftUnlocked(true);
+                realityManager.BeginDrift();
+            }
+
             openingCave.SetActive(false);
             PlacePlayer(brokenSpawn);
             // Change the atmosphere while the screen is still fully black.

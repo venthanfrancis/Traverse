@@ -1,4 +1,5 @@
 using UnityEngine;
+using Beat = NarrationSequence.NarrationBeats;
 
 namespace Drift
 {
@@ -31,6 +32,10 @@ namespace Drift
             ActiveNodes++;
             if (anchorLight != null)
                 anchorLight.intensity = 2f + ActiveNodes * 2f;
+            if (ActiveNodes == 1)
+                NarrationManager.Announce(Beat.NodeRestoredFirst);
+            else if (ActiveNodes == 2)
+                NarrationManager.Announce(Beat.NodeRestoredSecond);
             if (IsRestored)
             {
                 foreach (GameObject barrier in escapeBarriers)

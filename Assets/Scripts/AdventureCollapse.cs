@@ -1,4 +1,5 @@
 using UnityEngine;
+using Beat = NarrationSequence.NarrationBeats;
 
 namespace Drift
 {
@@ -37,6 +38,7 @@ namespace Drift
             if (player == null)
                 return;
             age = 0;
+            NarrationManager.Announce(Beat.CollapseWarning);
         }
 
         private void Update()

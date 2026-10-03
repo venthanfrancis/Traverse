@@ -47,7 +47,8 @@ namespace Drift
                 nearby = item;
             }
 
-            if (nearby != null && Application.isFocused && Cursor.lockState == CursorLockMode.Locked && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
+            // A showing subtitle uses E to skip/advance, so it must never also interact.
+            if (nearby != null && !NarrationManager.IsShowingLine && Application.isFocused && Cursor.lockState == CursorLockMode.Locked && Keyboard.current != null && Keyboard.current.eKey.wasPressedThisFrame)
                 nearby.Interact(this);
         }
 
@@ -61,7 +62,7 @@ namespace Drift
         {
             if (!InputEnabled)
                 return;
-            string text = Time.unscaledTime < messageUntil ? message : nearby != null ? nearby.Prompt : null;
+            string text = Time.unscaledTime < messageUntil ? message : nearby != null && !NarrationManager.IsShowingLine ? nearby.Prompt : null;
             if (string.IsNullOrEmpty(text))
                 return;
             GUI.Box(new Rect(Screen.width * 0.5f - 160f, Screen.height - 90f, 320f, 40f), text);

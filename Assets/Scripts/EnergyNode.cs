@@ -1,4 +1,5 @@
 using UnityEngine;
+using Beat = NarrationSequence.NarrationBeats;
 
 namespace Drift
 {
@@ -12,12 +13,24 @@ namespace Drift
         private GameObject[] unlockBarriers;
         [SerializeField]
         private Renderer visual;
-        public override string Prompt => "E — RESTORE";
-        public override bool CanInteract => base.CanInteract && anchor != null && !anchor.IsNodeActive(nodeIndex) && anchor.ActiveNodes == nodeIndex;
+        private bool IsNext => anchor != null && anchor.ActiveNodes == nodeIndex;
+
+        public override string Prompt => IsNext ? "E — RESTORE" : "E — LOCKED";
+        // Still interactable out of order so the player gets feedback instead of silence.
+        public override bool CanInteract => base.CanInteract && anchor != null && !anchor.IsNodeActive(nodeIndex);
 
         public override void Interact(PlayerInteraction player)
         {
-            if (!CanInteract || !anchor.ActivateNode(nodeIndex))
+            if (!CanInteract)
+                return;
+            if (!IsNext)
+            {
+                player.ShowMessage("Restore the earlier anchor first", 2f);
+                NarrationManager.Announce(Beat.NodeWrongOrder);
+                return;
+            }
+
+            if (!anchor.ActivateNode(nodeIndex))
                 return;
             foreach (GameObject barrier in unlockBarriers)
                 if (barrier != null)

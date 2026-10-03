@@ -23,25 +23,25 @@ public class UIManager : MonoBehaviour
     {
         
 
-        if (Input.GetKeyUp(KeyCode.P))
-            TogglePauseMenu();
+        //if (Input.GetKeyUp(KeyCode.P))
+            //TogglePauseMenu();
     }
 
-    public void TogglePauseMenu()
-    {
-        GameManager.Instance.gamePaused = !GameManager.Instance.gamePaused;
-        if (GameManager.Instance.gamePaused )
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Time.timeScale = 0;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Time.timeScale = 1;
-        }
-        PauseMenu.SetActive(GameManager.Instance.gamePaused);
-    }
+    //public void TogglePauseMenu()
+    //{
+    //    GameManager.Instance.gamePaused = !GameManager.Instance.gamePaused;
+    //    if (GameManager.Instance.gamePaused )
+    //    {
+    //        Cursor.lockState = CursorLockMode.None;
+    //        Time.timeScale = 0;
+    //    }
+    //    else
+    //    {
+    //        Cursor.lockState = CursorLockMode.Locked;
+    //        Time.timeScale = 1;
+    //    }
+    //    PauseMenu.SetActive(GameManager.Instance.gamePaused);
+    //}
 
     public void RestartGame()
     {

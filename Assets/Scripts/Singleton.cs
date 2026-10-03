@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
@@ -10,7 +9,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         {
             if (instance == null)
             {
-                instance = FindObjectOfType<T>();
+                instance = FindFirstObjectByType<T>(FindObjectsInactive.Include);
                 if (instance == null)
                 {
                     GameObject singleton = new GameObject(typeof(T) + " (Singleton)");
@@ -20,6 +19,9 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             return instance;
         }
     }
+
+    // Unlike Instance, never creates one.
+    public static T Existing => instance;
 
     protected virtual void Awake()
     {
@@ -31,26 +33,13 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
         {
             Destroy(this);
         }
-
-        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     protected virtual void OnDestroy()
-    {    
+    {
         if (instance == this)
         {
             instance = null;
-        }
-
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-        // Replace "GameplayScene" with the name of your gameplay scene
-        if (scene.name != "Gameplay")
-        {
-            Destroy(gameObject);
         }
     }
 }

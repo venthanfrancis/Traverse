@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static NarrationSequence;
 
 public class NarrationManager : Singleton<NarrationManager>
@@ -12,8 +13,12 @@ public class NarrationManager : Singleton<NarrationManager>
 
     [SerializeField] private NarrationSequence sequences;
     [SerializeField] private float charactersPerSecond = 30f;
-    [Tooltip("Key that advances a line")]
-    [SerializeField] private KeyCode advanceKey = KeyCode.E;
+    [Tooltip("Keys that skip typing or advance a line early. While a line is showing, E is used up by the subtitle and does not interact.")]
+    [SerializeField] private Key[] advanceKeys = { Key.Enter, Key.E };
+    [Tooltip("When on, a finished line advances by itself after its read time.")]
+    [SerializeField] private bool autoAdvance = true;
+    [SerializeField, Min(0f)] private float minReadSeconds = 2f;
+    [SerializeField, Min(0f)] private float secondsPerCharacter = 0.05f;
 
     private struct Narration
     {
@@ -24,8 +29,52 @@ public class NarrationManager : Singleton<NarrationManager>
     private readonly Queue<Narration> pending = new Queue<Narration>();
     private Coroutine playing;
 
-    public void Play(NarrationBeats narrationBeat, float delay)
+    private readonly HashSet<NarrationBeats> played = new HashSet<NarrationBeats>();
+
+    // True while a subtitle line is on screen. E belongs to the subtitle then (it skips/advances
+    // the line), so PlayerInteraction ignores E until the line is gone.
+    public static bool IsShowingLine
     {
+        get
+        {
+            NarrationManager manager = Existing;
+            return manager != null && manager.conversationBox != null && manager.conversationBox.gameObject.activeInHierarchy;
+        }
+    }
+
+    // Used by game code. Does nothing when there is no manager (tests, empty scenes)
+    // and, by default, plays each beat only once per session.
+    public static void Announce(NarrationBeats narrationBeat, float delay = 0f, bool once = true)
+    {
+        NarrationManager manager = Existing;
+        if (manager == null) return;
+
+        if (once) manager.PlayOnce(narrationBeat, delay);
+        else manager.Play(narrationBeat, delay);
+    }
+
+    public void PlayOnce(NarrationBeats narrationBeat, float delay = 0f)
+    {
+        if (played.Add(narrationBeat)) Play(narrationBeat, delay);
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        // The boxes stay enabled in the scene for editing; they only show while narrating.
+        if (narrativeBox != null) narrativeBox.SetActive(false);
+        if (conversationBox != null) conversationBox.gameObject.SetActive(false);
+    }
+
+    public void Play(NarrationBeats narrationBeat, float delay = 0f)
+    {
+        if (sequences == null || narrativeBox == null || conversationBox == null)
+        {
+            Debug.LogError("NarrationManager is missing its sequence or UI references.", this);
+            return;
+        }
+
         string[] lines = sequences.Lines(narrationBeat);
 
         if (lines == null)
@@ -74,7 +123,7 @@ public class NarrationManager : Singleton<NarrationManager>
             box.gameObject.SetActive(true);
 
             yield return TypeRoutine(box, narration.lines[i]);
-            yield return WaitForKey();
+            yield return WaitForKey(narration.lines[i]);
 
             box.gameObject.SetActive(false);
         }
@@ -102,14 +151,34 @@ public class NarrationManager : Singleton<NarrationManager>
         box.text = line;
     }
 
-    private IEnumerator WaitForKey()
+    private IEnumerator WaitForKey(string line)
     {
         yield return null;
 
-        while (!SkipPressed) yield return null;
+        // Unscaled so a line never hangs just because Time.timeScale is 0.
+        float readTime = minReadSeconds + line.Length * secondsPerCharacter;
+        float elapsed = 0f;
+
+        while (!SkipPressed && (!autoAdvance || elapsed < readTime))
+        {
+            elapsed += Time.unscaledDeltaTime;
+            yield return null;
+        }
 
         yield return null;
     }
 
-    private bool SkipPressed => Input.GetKeyDown(advanceKey);
+    private bool SkipPressed
+    {
+        get
+        {
+            Keyboard keyboard = Keyboard.current;
+            if (keyboard == null) return false;
+
+            foreach (Key key in advanceKeys)
+                if (keyboard[key].wasPressedThisFrame) return true;
+
+            return false;
+        }
+    }
 }

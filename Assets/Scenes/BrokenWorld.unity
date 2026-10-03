@@ -3030,6 +3030,7 @@ GameObject:
   - component: {fileID: 50910830}
   - component: {fileID: 50910832}
   - component: {fileID: 50910831}
+  - component: {fileID: 50910833}
   m_Layer: 0
   m_Name: CheckpointBeforePuzzle3
   m_TagString: Untagged
@@ -3087,6 +3088,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 8, y: 3, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &50910833
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 50910829}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14675e9250cafc64f8e27ad71e2a67aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Drift.NarrationTrigger
+  beat: 11
+  delay: 0
+  once: 1
 --- !u!1 &56551720
 GameObject:
   m_ObjectHideFlags: 0
@@ -11715,6 +11731,7 @@ GameObject:
   - component: {fileID: 222293748}
   - component: {fileID: 222293750}
   - component: {fileID: 222293749}
+  - component: {fileID: 222293751}
   m_Layer: 0
   m_Name: CheckpointBeforePuzzle2
   m_TagString: Untagged
@@ -11772,6 +11789,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 8, y: 3, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &222293751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 222293747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14675e9250cafc64f8e27ad71e2a67aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Drift.NarrationTrigger
+  beat: 11
+  delay: 0
+  once: 1
 --- !u!1 &226784818
 GameObject:
   m_ObjectHideFlags: 0
@@ -14157,6 +14189,75 @@ Transform:
   - {fileID: 1545377161}
   m_Father: {fileID: 1812547351}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &266329233
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 266329234}
+  - component: {fileID: 266329236}
+  - component: {fileID: 266329235}
+  m_Layer: 0
+  m_Name: Tutorial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &266329234
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266329233}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 694350411}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &266329235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266329233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14675e9250cafc64f8e27ad71e2a67aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Drift.NarrationTrigger
+  beat: 20
+  delay: 0
+  once: 1
+--- !u!65 &266329236
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 266329233}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7, y: 2, z: 7}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &268075930
 GameObject:
   m_ObjectHideFlags: 0
@@ -22460,6 +22561,7 @@ GameObject:
   m_Component:
   - component: {fileID: 330231488}
   - component: {fileID: 330231489}
+  - component: {fileID: 330231490}
   m_Layer: 0
   m_Name: PrototypeLight
   m_TagString: Untagged
@@ -22547,6 +22649,35 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!114 &330231490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330231487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!1 &330642361
 GameObject:
   m_ObjectHideFlags: 0
@@ -23702,6 +23833,7 @@ GameObject:
   - component: {fileID: 355332193}
   - component: {fileID: 355332195}
   - component: {fileID: 355332194}
+  - component: {fileID: 355332196}
   m_Layer: 0
   m_Name: EscapeBridgeCheckpoint
   m_TagString: Untagged
@@ -23759,6 +23891,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 8, y: 3, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &355332196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355332192}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14675e9250cafc64f8e27ad71e2a67aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Drift.NarrationTrigger
+  beat: 11
+  delay: 0
+  once: 1
 --- !u!1 &355776946
 GameObject:
   m_ObjectHideFlags: 0
@@ -27844,6 +27991,7 @@ GameObject:
   - component: {fileID: 434032956}
   - component: {fileID: 434032958}
   - component: {fileID: 434032957}
+  - component: {fileID: 434032959}
   m_Layer: 0
   m_Name: TowerCheckpoint
   m_TagString: Untagged
@@ -27900,6 +28048,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 7, y: 3, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &434032959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 434032955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14675e9250cafc64f8e27ad71e2a67aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Drift.NarrationTrigger
+  beat: 11
+  delay: 0
+  once: 1
 --- !u!1 &437667858
 GameObject:
   m_ObjectHideFlags: 0
@@ -32253,6 +32416,75 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2110939931}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &533403897
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 533403898}
+  - component: {fileID: 533403899}
+  - component: {fileID: 533403900}
+  m_Layer: 0
+  m_Name: SwitchTutorial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &533403898
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533403897}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 768110829}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &533403899
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533403897}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6, y: 2, z: 6}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &533403900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 533403897}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14675e9250cafc64f8e27ad71e2a67aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Drift.NarrationTrigger
+  beat: 19
+  delay: 0
+  once: 1
 --- !u!1 &540295327
 GameObject:
   m_ObjectHideFlags: 0
@@ -34391,6 +34623,75 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 578295740}
   m_Mesh: {fileID: 4300000, guid: 9107132348b58e04580b658077fc2e59, type: 2}
+--- !u!1 &579659955
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 579659956}
+  - component: {fileID: 579659957}
+  - component: {fileID: 579659958}
+  m_Layer: 0
+  m_Name: BrokenWorldsIntro
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &579659956
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579659955}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.17, y: 0.34, z: 2.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1874036898}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &579659957
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579659955}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 8, y: 1, z: 8}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &579659958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579659955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14675e9250cafc64f8e27ad71e2a67aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Drift.NarrationTrigger
+  beat: 6
+  delay: 0
+  once: 1
 --- !u!1 &580077283
 GameObject:
   m_ObjectHideFlags: 0
@@ -36528,6 +36829,75 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: c5049030c36b74040a31017b9d210c3d, type: 2}
+--- !u!1 &606578350
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 606578351}
+  - component: {fileID: 606578353}
+  - component: {fileID: 606578352}
+  m_Layer: 0
+  m_Name: Tutorial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &606578351
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606578350}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1844429024}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &606578352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606578350}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14675e9250cafc64f8e27ad71e2a67aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Drift.NarrationTrigger
+  beat: 21
+  delay: 0
+  once: 1
+--- !u!65 &606578353
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606578350}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 6, y: 2, z: 6}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &613640045
 GameObject:
   m_ObjectHideFlags: 0
@@ -40906,6 +41276,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 463289833}
+  - {fileID: 266329234}
   m_Father: {fileID: 262505186}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &694350412
@@ -45403,6 +45774,7 @@ Transform:
   m_Children:
   - {fileID: 184784104}
   - {fileID: 1046341331}
+  - {fileID: 533403898}
   m_Father: {fileID: 419006039}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &768110830
@@ -58282,6 +58654,7 @@ Transform:
   - {fileID: 566004822}
   - {fileID: 296033141}
   - {fileID: 1812547351}
+  - {fileID: 1889487834}
   m_Father: {fileID: 332682163}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &953209660
@@ -62611,6 +62984,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1402184846}
+  - {fileID: 1985489322}
   m_Father: {fileID: 262505186}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1028031731
@@ -68846,6 +69220,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1138932737}
   - component: {fileID: 1138932736}
+  - component: {fileID: 1138932738}
   m_Layer: 0
   m_Name: ProgressLight
   m_TagString: Untagged
@@ -68933,6 +69308,35 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1629890973}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1138932738
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1138932735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.RenderPipelines.Universal.Runtime::UnityEngine.Rendering.Universal.UniversalAdditionalLightData
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_CustomShadowLayers: 0
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!1 &1139544302
 GameObject:
   m_ObjectHideFlags: 0
@@ -73039,6 +73443,7 @@ GameObject:
   - component: {fileID: 1221223032}
   - component: {fileID: 1221223034}
   - component: {fileID: 1221223033}
+  - component: {fileID: 1221223035}
   m_Layer: 0
   m_Name: CollapseCheckpoint
   m_TagString: Untagged
@@ -73095,6 +73500,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 7, y: 3, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1221223035
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221223031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14675e9250cafc64f8e27ad71e2a67aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Drift.NarrationTrigger
+  beat: 11
+  delay: 0
+  once: 1
 --- !u!1 &1221308442
 GameObject:
   m_ObjectHideFlags: 0
@@ -73308,6 +73728,7 @@ GameObject:
   - component: {fileID: 1222063608}
   - component: {fileID: 1222063610}
   - component: {fileID: 1222063609}
+  - component: {fileID: 1222063611}
   m_Layer: 0
   m_Name: Node2ApproachCheckpoint
   m_TagString: Untagged
@@ -73365,6 +73786,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 8, y: 3, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1222063611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222063607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14675e9250cafc64f8e27ad71e2a67aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Drift.NarrationTrigger
+  beat: 11
+  delay: 0
+  once: 1
 --- !u!1 &1225678807
 GameObject:
   m_ObjectHideFlags: 0
@@ -87773,6 +88209,7 @@ GameObject:
   - component: {fileID: 1400727339}
   - component: {fileID: 1400727341}
   - component: {fileID: 1400727340}
+  - component: {fileID: 1400727342}
   m_Layer: 0
   m_Name: FinalChallengeCheckpoint
   m_TagString: Untagged
@@ -87830,6 +88267,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 8, y: 3, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1400727342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1400727338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14675e9250cafc64f8e27ad71e2a67aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Drift.NarrationTrigger
+  beat: 11
+  delay: 0
+  once: 1
 --- !u!1 &1401437417
 GameObject:
   m_ObjectHideFlags: 0
@@ -90416,6 +90868,7 @@ GameObject:
   - component: {fileID: 1458244838}
   - component: {fileID: 1458244840}
   - component: {fileID: 1458244839}
+  - component: {fileID: 1458244841}
   m_Layer: 0
   m_Name: EscapeJumpCheckpoint
   m_TagString: Untagged
@@ -90473,6 +90926,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 8, y: 3, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1458244841
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1458244837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14675e9250cafc64f8e27ad71e2a67aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Drift.NarrationTrigger
+  beat: 11
+  delay: 0
+  once: 1
 --- !u!1 &1459063301
 GameObject:
   m_ObjectHideFlags: 0
@@ -91643,6 +92111,75 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1483905955}
   m_Mesh: {fileID: 4300000, guid: b44b230ca9687c348bfc86f4e48538ad, type: 2}
+--- !u!1 &1490022947
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1490022948}
+  - component: {fileID: 1490022950}
+  - component: {fileID: 1490022949}
+  m_Layer: 0
+  m_Name: NormalWorldIntro
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1490022948
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490022947}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.17, y: 0.34, z: 2.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1889487834}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1490022949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490022947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14675e9250cafc64f8e27ad71e2a67aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Drift.NarrationTrigger
+  beat: 7
+  delay: 0
+  once: 1
+--- !u!65 &1490022950
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1490022947}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 8, y: 1, z: 8}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1490703212
 GameObject:
   m_ObjectHideFlags: 0
@@ -112623,6 +113160,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 308234889}
+  - {fileID: 606578351}
   m_Father: {fileID: 540295328}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1844429025
@@ -114179,6 +114717,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1873603460}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1874036897
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1874036898}
+  m_Layer: 0
+  m_Name: TutorialTriggerPoints
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1874036898
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1874036897}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 100.2, y: 0, z: 2.11}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 579659956}
+  m_Father: {fileID: 2046591877}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1875004048
 GameObject:
   m_ObjectHideFlags: 0
@@ -114278,6 +114848,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1876820117}
+  - component: {fileID: 1876820119}
+  - component: {fileID: 1876820118}
   m_Layer: 0
   m_Name: CheckpointBeforePuzzle2Spawn
   m_TagString: Untagged
@@ -114300,6 +114872,42 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2113239270}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1876820118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876820116}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14675e9250cafc64f8e27ad71e2a67aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Drift.NarrationTrigger
+  beat: 11
+  delay: 0
+  once: 1
+--- !u!65 &1876820119
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1876820116}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 4, y: 1, z: 4}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1876856714
 GameObject:
   m_ObjectHideFlags: 0
@@ -114779,6 +115387,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1888558830}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1889487833
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1889487834}
+  m_Layer: 0
+  m_Name: TutorialTriggerPoints (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1889487834
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1889487833}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 100.2, y: 0, z: 2.11}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1490022948}
+  m_Father: {fileID: 953209659}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1890104520
 GameObject:
   m_ObjectHideFlags: 0
@@ -115749,6 +116389,75 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1911808591}
   m_Mesh: {fileID: 4300000, guid: 9107132348b58e04580b658077fc2e59, type: 2}
+--- !u!1 &1916071224
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1916071225}
+  - component: {fileID: 1916071226}
+  - component: {fileID: 1916071227}
+  m_Layer: 0
+  m_Name: TelescopeTutorial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1916071225
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916071224}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1948877608}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1916071226
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916071224}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 7, y: 2, z: 7}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1916071227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1916071224}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14675e9250cafc64f8e27ad71e2a67aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Drift.NarrationTrigger
+  beat: 22
+  delay: 0
+  once: 1
 --- !u!1 &1917276332
 GameObject:
   m_ObjectHideFlags: 0
@@ -117533,6 +118242,7 @@ Transform:
   m_Children:
   - {fileID: 990192951}
   - {fileID: 1443145262}
+  - {fileID: 1916071225}
   m_Father: {fileID: 299780719}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1948877609
@@ -119699,6 +120409,75 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1985322419}
   m_Mesh: {fileID: 4300000, guid: 3ef20fbff7b6023498407f81ab762b27, type: 2}
+--- !u!1 &1985489321
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1985489322}
+  - component: {fileID: 1985489324}
+  - component: {fileID: 1985489323}
+  m_Layer: 0
+  m_Name: Tutorial
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1985489322
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985489321}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1028031730}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1985489323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985489321}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14675e9250cafc64f8e27ad71e2a67aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Drift.NarrationTrigger
+  beat: 21
+  delay: 0
+  once: 1
+--- !u!65 &1985489324
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1985489321}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Size: {x: 5, y: 2, z: 5}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1986773752
 GameObject:
   m_ObjectHideFlags: 0
@@ -123014,6 +123793,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1874036898}
   - {fileID: 589183570}
   - {fileID: 1010732802}
   - {fileID: 1202522377}
@@ -125091,6 +125871,7 @@ GameObject:
   - component: {fileID: 2076793334}
   - component: {fileID: 2076793336}
   - component: {fileID: 2076793335}
+  - component: {fileID: 2076793337}
   m_Layer: 0
   m_Name: Node3ApproachCheckpoint
   m_TagString: Untagged
@@ -125148,6 +125929,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 8, y: 3, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2076793337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076793333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14675e9250cafc64f8e27ad71e2a67aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Drift.NarrationTrigger
+  beat: 11
+  delay: 0
+  once: 1
 --- !u!1 &2078032566
 GameObject:
   m_ObjectHideFlags: 0

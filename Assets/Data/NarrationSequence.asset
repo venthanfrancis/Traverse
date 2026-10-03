@@ -16,3 +16,74 @@ MonoBehaviour:
   - beat: 1
     lines:
     - Where am I?
+  - beat: 5
+    lines:
+    - These look like orbs. One of them is cracked and wrong.
+    - Press E near an orb to touch it.
+  - beat: 4
+    lines:
+    - Something here is not quite real. Press Q to drift.
+  - beat: 6
+    lines:
+    - This place is broken. Nothing holds together here.
+    - Press Q to drift into the world as it used to be.
+  - beat: 7
+    lines:
+    - 'This looks like a normal world, but can''t stay here for long, it is unstable! '
+    - Press Q to leave before it throws me out.
+  - beat: 7
+    lines:
+    - This looks like a normal world, but you can't stay here for long, it is unstable!
+      I can press Q to drift into the other dimension
+  - beat: 8
+    lines:
+    - The bar shows how long this world will hold.
+    - When it empties, I'm pulled back.
+  - beat: 9
+    lines:
+    - It's collapsing. Back to the broken side.
+    - What I change in the normal world might still be here when I return.
+  - beat: 10
+    lines:
+    - I fell. Back to the last checkpoint. Not a problem.
+  - beat: 11
+    lines:
+    - A marker. If I fall, I'll start here.
+  - beat: 12
+    lines:
+    - Not yet. Something else has to be restored first.
+  - beat: 13
+    lines:
+    - One down. Two to go.
+  - beat: 14
+    lines:
+    - Another one. The last anchor is on the broken side.
+  - beat: 15
+    lines:
+    - It's locked onto something far away. A path has opened.
+  - beat: 16
+    lines:
+    - The anchor is awake. The world is falling apart.
+    - Get to the Anchor and press E to escape.
+  - beat: 17
+    lines:
+    - It's giving way. Don't stop moving.
+  - beat: 18
+    lines:
+    - I'm back in the cave, where I woke up.
+    - The way out is where I started. Walk back to the entrance.
+  - beat: 19
+    lines:
+    - A switch. It only exists in the normal world.
+    - Flip it before the time runs out. The change may stay behind.
+  - beat: 20
+    lines:
+    - These are anchors. There are three.
+    - They must be restored in order.
+  - beat: 21
+    lines:
+    - The last anchor isn't in the normal world. It's here, in the broken one.
+  - beat: 22
+    lines:
+    - An old telescope. It's pointing at nothing.
+    - Press E to align it. It may reveal a shortcut.
