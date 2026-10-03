@@ -65,7 +65,8 @@ namespace Drift
             string text = Time.unscaledTime < messageUntil ? message : nearby != null && !NarrationManager.IsShowingLine ? nearby.Prompt : null;
             if (string.IsNullOrEmpty(text))
                 return;
-            GUI.Box(new Rect(Screen.width * 0.5f - 160f, Screen.height - 90f, 320f, 40f), text);
+            float width = Hud.Px(560f), height = Hud.Px(68f);
+            Hud.Box(new Rect((Screen.width - width) * 0.5f, Screen.height - Hud.Px(110f), width, height), text, 32f);
         }
     }
 }
