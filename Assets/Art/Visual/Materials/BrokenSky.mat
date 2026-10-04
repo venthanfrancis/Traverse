@@ -25,7 +25,7 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
-    - _Eclipse: 1
+    - _Eclipse: 0
     - _Stars: 0.1
     m_Colors:
     - _Horizon: {r: 0.35, g: 0.033, b: 0.022, a: 1}

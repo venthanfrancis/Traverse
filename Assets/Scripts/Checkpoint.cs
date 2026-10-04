@@ -6,6 +6,8 @@ namespace Drift
     {
         [SerializeField]
         private Transform spawnPoint;
+        [SerializeField]
+        private bool showMessage = true;
         private bool reached;
         private void OnTriggerEnter(Collider other)
         {
@@ -14,7 +16,8 @@ namespace Drift
                 return;
             reached = true;
             player.SetCheckpoint(spawnPoint != null ? spawnPoint : transform);
-            player.GetComponent<PlayerInteraction>()?.ShowMessage("Checkpoint", 2f);
+            if (showMessage)
+                player.GetComponent<PlayerInteraction>()?.ShowMessage("Checkpoint", 2f);
         }
     }
 }

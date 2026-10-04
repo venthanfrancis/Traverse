@@ -20,7 +20,7 @@ namespace Drift
         {
             movement = GetComponent<PlayerMovement>();
             CurrentCheckpoint = initialCheckpoint;
-            if (realityManager == null || playerCamera == null || initialCheckpoint == null)
+            if (realityManager == null || playerCamera == null)
             {
                 Debug.LogError("Assign manager, camera and initial checkpoint to PlayerRespawn.", this);
                 enabled = false;
@@ -44,6 +44,8 @@ namespace Drift
         {
             if (CurrentCheckpoint == null || !realityManager.CanDrift)
                 return;
+            foreach (var block in FindObjectsByType<EchoBlockPuzzle>(FindObjectsSortMode.None))
+                block.ReleaseCarry();
             realityManager.ResetForRespawn();
             CharacterController controller = GetComponent<CharacterController>();
             bool wasEnabled = controller.enabled;

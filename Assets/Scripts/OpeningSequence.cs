@@ -38,7 +38,7 @@ namespace Drift
 
         private void Start()
         {
-            if (realityManager == null || openingCave == null || brokenWorld == null || normalWorld == null || playerMovement == null || playerInteraction == null || playerCamera == null || entranceSpawn == null || brokenSpawn == null || screenFade == null)
+            if (realityManager == null || playerMovement == null || playerInteraction == null || playerCamera == null || screenFade == null)
             {
                 Debug.LogError("OpeningSequence needs all world, player, spawn, and fade references assigned.", this);
                 enabled = false;
@@ -46,10 +46,16 @@ namespace Drift
             }
 
             realityManager.SetDriftUnlocked(false);
-            brokenWorld.SetActive(false);
-            normalWorld.SetActive(false);
+        }
+
+        public void EnterCave()
+        {
+            HasArrived = false;
+            IsTransitioning = false;
+            realityManager.SetDriftUnlocked(false);
             openingCave.SetActive(true);
             PlacePlayer(entranceSpawn);
+            playerMovement.GetComponent<PlayerRespawn>().SetCheckpoint(entranceSpawn);
         }
 
         public void BeginTransition()
@@ -81,9 +87,10 @@ namespace Drift
             }
 
             yield return screenFade.FadeOut(fadeTime);
+            yield return FindFirstObjectByType<DriftSceneLoader>().LoadLevel("BrokenWorld");
             realityManager.ArriveInBrokenWorld();
-            openingCave.SetActive(false);
             PlacePlayer(brokenSpawn);
+            playerMovement.GetComponent<PlayerRespawn>().SetCheckpoint(brokenSpawn);
             // Change the atmosphere while the screen is still fully black.
             HasArrived = true;
             yield return null;

@@ -16,6 +16,8 @@ namespace Drift
         private float cameraDistance = 4f;
         [SerializeField]
         private Vector3 targetOffset = Vector3.zero;
+        [SerializeField, Min(0f)]
+        private float shoulderOffset = 0.45f;
         [SerializeField]
         private float minimumPitch = -35f;
         [SerializeField]
@@ -54,7 +56,7 @@ namespace Drift
             yawVelocity = pitchVelocity = distanceVelocity = 0f;
             distance = cameraDistance;
             Quaternion rotation = Quaternion.Euler(smoothPitch, smoothYaw, 0f);
-            transform.SetPositionAndRotation(pivot + rotation * Vector3.back * distance, rotation);
+            PlaceCamera(rotation);
             skipLook = true;
         }
 
@@ -139,19 +141,32 @@ namespace Drift
             smoothYaw = Mathf.SmoothDampAngle(smoothYaw, yaw, ref yawVelocity, rotationSmoothTime);
             smoothPitch = Mathf.SmoothDampAngle(smoothPitch, pitch, ref pitchVelocity, rotationSmoothTime);
             Quaternion rotation = Quaternion.Euler(smoothPitch, smoothYaw, 0f);
-            Vector3 backwards = rotation * Vector3.back;
-            float allowed = cameraDistance;
-            // A smoothed pivot can lag behind the moving player. Ignore the entire player
-            // hierarchy explicitly, even if its layer was accidentally included in the mask.
-            // Inspect every hit so ignoring the player does not hide a wall behind it.
-            RaycastHit[] hits = Physics.SphereCastAll(pivot, collisionRadius, backwards, cameraDistance, collisionLayers, QueryTriggerInteraction.Ignore);
-            foreach (RaycastHit hit in hits)
+            PlaceCamera(rotation);
+        }
+
+        private float ClearDistance(Vector3 origin, Vector3 direction, float length)
+        {
+            float allowed = length;
+            foreach (RaycastHit hit in Physics.SphereCastAll(origin, collisionRadius, direction, length, collisionLayers, QueryTriggerInteraction.Ignore))
             {
                 if (playerRoot != null && hit.collider.transform.IsChildOf(playerRoot))
                     continue;
                 allowed = Mathf.Min(allowed, Mathf.Max(0f, hit.distance - collisionPadding));
             }
+            return allowed;
+        }
 
+        private void PlaceCamera(Quaternion rotation)
+        {
+            Vector3 anchor = cameraTarget.position + targetOffset;
+            Vector3 lag = pivot - anchor;
+            // Prevent the smoothed follow point from passing through nearby geometry.
+            if (lag.sqrMagnitude > 0.0001f)
+                pivot = anchor + lag.normalized * ClearDistance(anchor, lag.normalized, lag.magnitude);
+            Vector3 right = Quaternion.Euler(0f, smoothYaw, 0f) * Vector3.right;
+            Vector3 cameraPivot = pivot + right * ClearDistance(pivot, right, shoulderOffset);
+            Vector3 backwards = rotation * Vector3.back;
+            float allowed = ClearDistance(cameraPivot, backwards, cameraDistance);
             // Pull inward immediately; smooth only the return so smoothing cannot cross a wall.
             if (allowed < distance)
             {
@@ -160,7 +175,7 @@ namespace Drift
             }
             else
                 distance = Mathf.Min(allowed, Mathf.SmoothDamp(distance, allowed, ref distanceVelocity, distanceSmoothTime));
-            transform.SetPositionAndRotation(pivot + backwards * distance, rotation);
+            transform.SetPositionAndRotation(cameraPivot + backwards * distance, rotation);
         }
 
         private void OnValidate()

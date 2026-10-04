@@ -25,7 +25,7 @@ namespace Drift
         public bool IsNodeActive(int index) => index >= 0 && index < nodes.Length && nodes[index];
         public bool ActivateNode(int index)
         {
-            if (index < 0 || index >= nodes.Length || nodes[index] || index != ActiveNodes)
+            if (index < 0 || index >= nodes.Length || nodes[index])
                 return false;
             nodes[index] = true;
             ActiveNodes++;

@@ -12,6 +12,7 @@ namespace Drift
         private Interactable nearby;
         private string message;
         private float messageUntil;
+        private GUIStyle promptStyle;
         public bool InputEnabled { get; set; } = true;
         public Interactable Nearby => nearby;
 
@@ -27,7 +28,8 @@ namespace Drift
                 Interactable item = collider.GetComponentInParent<Interactable>();
                 if (item == null || !item.CanInteract)
                     continue;
-                float distance = (collider.ClosestPoint(origin) - origin).sqrMagnitude;
+                Vector3 point = collider is MeshCollider mesh && !mesh.convex ? collider.bounds.ClosestPoint(origin) : collider.ClosestPoint(origin);
+                float distance = (point - origin).sqrMagnitude;
                 if (distance >= best)
                     continue;
                 // A wall between player and artifact should prevent interacting through it.
@@ -59,12 +61,16 @@ namespace Drift
 
         private void OnGUI()
         {
-            if (!InputEnabled)
+            if (!InputEnabled || Time.timeScale <= 0f)
                 return;
             string text = Time.unscaledTime < messageUntil ? message : nearby != null ? nearby.Prompt : null;
             if (string.IsNullOrEmpty(text))
                 return;
-            GUI.Box(new Rect(Screen.width * 0.5f - 160f, Screen.height - 90f, 320f, 40f), text);
+            if (promptStyle == null) promptStyle = GameUI.Text(12);
+            Matrix4x4 previous = GameUI.Begin();
+            var panel = new Rect(350f, 486f, 260f, 34f);
+            GameUI.Label(new Rect(panel.x + 10f, panel.y + 4f, panel.width - 20f, panel.height - 8f), text, promptStyle);
+            GUI.matrix = previous;
         }
     }
 }

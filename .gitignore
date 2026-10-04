@@ -113,3 +113,8 @@ InitTestScene*.unity*
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Local assistant workspace files
+/.codex/
+/.agents/
+/AGENTS.md

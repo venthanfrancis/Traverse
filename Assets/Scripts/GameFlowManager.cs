@@ -48,9 +48,10 @@ namespace Drift
         private GameAudioManager audioManager;
         public GamePhase Phase { get; private set; } = GamePhase.Title;
         public bool IsPaused { get; private set; }
-        public bool IsGameplayRunning => !IsPaused && Phase != GamePhase.Title && Phase != GamePhase.Ending && Phase != GamePhase.Returning && !openingSequence.IsTransitioning;
+        public bool IsGameplayRunning => DriftSceneLoader.IsReady && !loadingOpening && !IsPaused && Phase != GamePhase.Title && Phase != GamePhase.Ending && Phase != GamePhase.Returning && !openingSequence.IsTransitioning;
 
         private bool settingsOpen;
+        private bool loadingOpening;
         private float tutorialUntil;
         private float endingShownAt;
         private GUIStyle titleStyle, labelStyle;
@@ -78,6 +79,8 @@ namespace Drift
 
         private void Update()
         {
+            if (!DriftSceneLoader.IsReady || loadingOpening)
+                return;
             if (Phase == GamePhase.Opening && openingSequence.HasArrived)
                 Phase = GamePhase.BrokenWorld;
             if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
@@ -99,10 +102,22 @@ namespace Drift
             if (Phase != GamePhase.Title)
                 return;
             Phase = GamePhase.Opening;
+            loadingOpening = true;
             settingsOpen = false;
             Time.timeScale = 1f;
             AudioListener.pause = false;
             tutorialUntil = Time.unscaledTime + 9f;
+            SetControl(false);
+            StartCoroutine(LoadOpening());
+        }
+
+        private IEnumerator LoadOpening()
+        {
+            yield return fade.FadeOut(.25f);
+            yield return FindFirstObjectByType<DriftSceneLoader>().LoadLevel("Cave");
+            openingSequence.EnterCave();
+            yield return fade.FadeIn(.25f);
+            loadingOpening = false;
             SetControl(true);
         }
 
@@ -145,7 +160,7 @@ namespace Drift
             playAfterReload = false;
             Time.timeScale = 1f;
             AudioListener.pause = false;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            FindFirstObjectByType<DriftSceneLoader>().ReturnToMenu();
         }
 
         public void PlayAgain()
@@ -153,7 +168,7 @@ namespace Drift
             playAfterReload = true;
             Time.timeScale = 1f;
             AudioListener.pause = false;
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            FindFirstObjectByType<DriftSceneLoader>().ReturnToMenu();
         }
 
         public void BeginEscape()
@@ -178,9 +193,7 @@ namespace Drift
             audioManager.PlayAnchor();
             yield return fade.FadeOut(0.9f);
             realityManager.SetDriftUnlocked(false);
-            realityManager.ArriveInBrokenWorld();
-            brokenWorld.SetActive(false);
-            normalWorld.SetActive(false);
+            yield return FindFirstObjectByType<DriftSceneLoader>().LoadLevel("Cave");
             openingCave.SetActive(true);
             corruptedArtifact.enabled = false;
             foreach (ParticleSystem particles in corruptedArtifact.GetComponentsInChildren<ParticleSystem>())
@@ -272,7 +285,7 @@ namespace Drift
 
         private bool Button(string text)
         {
-            bool pressed = GUILayout.Button(text, GUILayout.Height(42f));
+            bool pressed = GameUI.Button(text);
             if (pressed)
                 audioManager.PlayUI();
             return pressed;
@@ -280,35 +293,24 @@ namespace Drift
 
         private void OnGUI()
         {
-            Matrix4x4 previous = GUI.matrix;
-            float scale = Mathf.Min(Screen.width / 960f, Screen.height / 540f);
-            GUI.matrix = Matrix4x4.TRS(new Vector3((Screen.width - 960f * scale) * 0.5f, (Screen.height - 540f * scale) * 0.5f), Quaternion.identity, Vector3.one * scale);
+            Matrix4x4 previous = GameUI.Begin();
             if (titleStyle == null)
             {
-                titleStyle = new GUIStyle(GUI.skin.label)
-                {
-                    fontSize = 52,
-                    alignment = TextAnchor.MiddleCenter
-                };
-                labelStyle = new GUIStyle(GUI.skin.label)
-                {
-                    fontSize = 16,
-                    alignment = TextAnchor.MiddleCenter,
-                    wordWrap = true
-                };
+                titleStyle = GameUI.Text(40);
+                labelStyle = GameUI.Text(12);
+                labelStyle.normal.textColor = GameUI.Muted;
             }
 
             if (Phase == GamePhase.Title || IsPaused || Phase == GamePhase.Ending)
             {
-                GUI.color = new Color(0.035f, 0.045f, 0.075f, 0.97f);
-                GUI.DrawTexture(new Rect(-2000f, -2000f, 5000f, 5000f), Texture2D.whiteTexture);
-                GUI.color = Color.white;
-                GUILayout.BeginArea(new Rect(310f, 80f, 340f, 400f));
-                GUILayout.Label(IsPaused ? "PAUSED" : "DRIFT", titleStyle);
+                GameUI.Fill(new Rect(-2000f, -2000f, 5000f, 5000f), new Color(.025f, .03f, .03f, IsPaused ? .85f : .98f));
+                GUILayout.BeginArea(new Rect(355f, 72f, 250f, 410f));
+                GUILayout.Label(settingsOpen ? "SETTINGS" : IsPaused ? "PAUSED" : "DRIFT", titleStyle);
+                GUILayout.Space(12f);
                 if (Phase == GamePhase.Ending)
                 {
                     float endingAge = Time.unscaledTime - endingShownAt;
-                    GUILayout.Label(endingAge >= .6f ? "THE DRIFT HAS BEGUN" : "", labelStyle);
+                    GUILayout.Label(endingAge >= .6f ? "OUT OF THE DRIFT" : "", labelStyle);
                     GUILayout.Label(endingAge >= 1.5f ? "Thanks for Playing" : "", labelStyle);
                     GUILayout.Space(22f);
                     if (Button("PLAY AGAIN"))
@@ -320,17 +322,19 @@ namespace Drift
                 }
                 else if (settingsOpen)
                 {
-                    GUILayout.Label("MASTER VOLUME", labelStyle);
-                    float volume = GUILayout.HorizontalSlider(AudioListener.volume, 0f, 1f);
+                    GUILayout.Label($"MASTER VOLUME  /  {AudioListener.volume * 100f:0}%", labelStyle);
+                    float volume = GameUI.Slider(AudioListener.volume, 0f, 1f);
                     AudioListener.volume = volume;
                     PlayerPrefs.SetFloat("Drift.MasterVolume", volume);
-                    GUILayout.Space(14f);
+                    GUILayout.Space(10f);
                     GUILayout.Label("MOUSE SENSITIVITY", labelStyle);
-                    float sensitivity = GUILayout.HorizontalSlider(playerCamera.MouseSensitivity, 0.02f, 0.5f);
+                    float sensitivity = GameUI.Slider(playerCamera.MouseSensitivity, 0.02f, 0.5f);
                     playerCamera.MouseSensitivity = sensitivity;
                     PlayerPrefs.SetFloat("Drift.MouseSensitivity", sensitivity);
-                    GUILayout.Space(14f);
-                    bool fullscreen = GUILayout.Toggle(Screen.fullScreen, " Fullscreen");
+                    GUILayout.Space(10f);
+                    bool subtitles = GameUI.Toggle("Story subtitles", PlayerPrefs.GetInt("Drift.Subtitles", 1) != 0);
+                    PlayerPrefs.SetInt("Drift.Subtitles", subtitles ? 1 : 0);
+                    bool fullscreen = GameUI.Toggle("Fullscreen", Screen.fullScreen);
                     if (fullscreen != Screen.fullScreen)
                         Screen.fullScreen = fullscreen;
                     if (Button("BACK"))

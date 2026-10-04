@@ -12,8 +12,9 @@ namespace Drift
         private GameObject[] unlockBarriers;
         [SerializeField]
         private Renderer visual;
+        [SerializeField] private EchoBlockPuzzle requiredPuzzle;
         public override string Prompt => "E — RESTORE";
-        public override bool CanInteract => base.CanInteract && anchor != null && !anchor.IsNodeActive(nodeIndex) && anchor.ActiveNodes == nodeIndex;
+        public override bool CanInteract => base.CanInteract && anchor != null && !anchor.IsNodeActive(nodeIndex) && (requiredPuzzle == null || requiredPuzzle.IsSolved);
 
         public override void Interact(PlayerInteraction player)
         {

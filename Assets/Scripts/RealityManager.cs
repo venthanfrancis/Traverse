@@ -23,6 +23,8 @@ namespace Drift
         private GameObject stableWorld;
         [SerializeField, Min(0.01f)]
         private float driftDuration = 15f;
+        [SerializeField, Min(0.01f)]
+        private float rechargeDuration = 15f;
         [SerializeField]
         private bool driftUnlockedAtStart = true;
         public bool CanDrift { get; private set; }
@@ -31,14 +33,16 @@ namespace Drift
         public bool IsDrifting => CurrentDimension == Dimension.Normal;
         public float RemainingDriftTime { get; private set; }
         public float DriftDuration => driftDuration;
-        public float Stability => IsDrifting ? Mathf.Clamp01(RemainingDriftTime / activeDuration) : 0f;
+        public float Stability => Mathf.Clamp01(RemainingDriftTime / DriftDuration);
+        public bool CanEnterDrift => CanDrift && RemainingDriftTime >= Mathf.Min(1f, DriftDuration);
 
         public event Action BeforeReturnToBroken;
         public event Action<Dimension> DimensionChanged;
-        private float activeDuration = 15f;
         private bool initialized;
         private void Awake()
         {
+            if (brokenWorld == null && stableWorld == null)
+                return;
             if (brokenWorld == null || stableWorld == null || brokenWorld == stableWorld || brokenWorld.transform.IsChildOf(stableWorld.transform) || stableWorld.transform.IsChildOf(brokenWorld.transform) || transform.IsChildOf(brokenWorld.transform) || transform.IsChildOf(stableWorld.transform))
             {
                 Debug.LogError("Assign separate Broken World and Normal World roots. Keep GameManager outside both.", this);
@@ -48,7 +52,20 @@ namespace Drift
 
             initialized = true;
             CanDrift = driftUnlockedAtStart;
+            RemainingDriftTime = DriftDuration;
             SetDimension(Dimension.Broken);
+        }
+
+        public void BindWorlds(GameObject broken, GameObject normal)
+        {
+            brokenWorld = broken;
+            stableWorld = normal;
+            initialized = broken != null && normal != null;
+            CanDrift = false;
+            CurrentDimension = Dimension.Broken;
+            RemainingDriftTime = 0f;
+            if (initialized)
+                SetDimension(Dimension.Broken);
         }
 
         private void Update()
@@ -65,6 +82,8 @@ namespace Drift
                     return; // An expiry-frame Q press cannot immediately restart the timer.
                 }
             }
+            else if (CanDrift)
+                RemainingDriftTime = Mathf.MoveTowards(RemainingDriftTime, DriftDuration, Time.deltaTime * DriftDuration / rechargeDuration);
 
             if (Application.isFocused && Cursor.lockState == CursorLockMode.Locked && Keyboard.current != null && Keyboard.current.qKey.wasPressedThisFrame)
                 SwitchReality();
@@ -72,7 +91,7 @@ namespace Drift
 
         public void SwitchReality()
         {
-            if (!initialized || !isActiveAndEnabled || !GameplayInputEnabled)
+            if (!initialized || !isActiveAndEnabled || !GameplayInputEnabled || Time.timeScale <= 0f)
                 return;
             if (IsDrifting)
                 ReturnToBroken();
@@ -82,10 +101,8 @@ namespace Drift
 
         public void BeginDrift()
         {
-            if (!initialized || !isActiveAndEnabled || IsDrifting || !CanDrift || !GameplayInputEnabled)
+            if (!initialized || !isActiveAndEnabled || IsDrifting || !CanEnterDrift || !GameplayInputEnabled || Time.timeScale <= 0f)
                 return;
-            activeDuration = Mathf.Max(0.01f, driftDuration);
-            RemainingDriftTime = activeDuration;
             SetDimension(Dimension.Normal);
         }
 
@@ -94,7 +111,6 @@ namespace Drift
             if (!initialized || !IsDrifting)
                 return;
             BeforeReturnToBroken?.Invoke();
-            RemainingDriftTime = 0f;
             SetDimension(Dimension.Broken);
         }
 
@@ -109,7 +125,7 @@ namespace Drift
         {
             if (!initialized)
                 return;
-            RemainingDriftTime = 0f;
+            RemainingDriftTime = DriftDuration;
             SetDimension(Dimension.Broken);
         }
 
@@ -119,7 +135,6 @@ namespace Drift
                 return;
             if (IsDrifting)
                 BeforeReturnToBroken?.Invoke();
-            RemainingDriftTime = driftDuration;
             SetDimension(Dimension.Broken);
         }
 
@@ -144,6 +159,7 @@ namespace Drift
         private void OnValidate()
         {
             driftDuration = Mathf.Max(0.01f, driftDuration);
+            rechargeDuration = Mathf.Max(0.01f, rechargeDuration);
         }
     }
 }

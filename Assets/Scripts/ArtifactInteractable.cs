@@ -8,6 +8,7 @@ namespace Drift
         private bool corrupted;
         [SerializeField]
         private OpeningSequence openingSequence;
+        public override string Prompt => corrupted ? base.Prompt : null;
         public override bool CanInteract => base.CanInteract && (!corrupted || (openingSequence != null && !openingSequence.HasArrived && !openingSequence.IsTransitioning));
 
         public override void Interact(PlayerInteraction player)

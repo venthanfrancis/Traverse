@@ -66,7 +66,11 @@ namespace Drift
         {
             if (flow == null || !flow.IsGameplayRunning || Time.time > progressUntil || previousCount == 0)
                 return;
-            GUI.Box(new Rect(Screen.width * .5f - 130, 70, 260, 32), "ANCHORS RESTORED: " + previousCount + "/3");
+            if (progressStyle == null) progressStyle = GameUI.Text(12);
+            Matrix4x4 previous = GameUI.Begin();
+            GameUI.Label(new Rect(378f, 32f, 204f, 28f), "Anchors  " + previousCount + " / 3", progressStyle);
+            GUI.matrix = previous;
         }
+        private GUIStyle progressStyle;
     }
 }

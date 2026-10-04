@@ -9,6 +9,14 @@ public class NarrationSequence : ScriptableObject
         OpeningNarration = 1,
         DeathNarration = 2,
         WinningNarration = 3,
+        ArtifactArrival = 4,
+        FirstEcho = 5,
+        FirstAnchor = 6,
+        SecondAnchor = 7,
+        FinalAnchor = 8,
+        ReturnToCave = 9,
+        FoundArtifacts = 10,
+        EchoPuzzle = 11,
     }
 
     [System.Serializable]

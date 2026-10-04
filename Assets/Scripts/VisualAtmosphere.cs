@@ -24,7 +24,7 @@ namespace Drift
         private Bloom bloom;
         private ColorAdjustments colors;
         private ChromaticAberration chromatic;
-        private float pulse, collapseBeat;
+        private float collapseBeat;
         private Material originalSky;
         private Color originalAmbient, originalFog, originalKey;
         private bool originalFogEnabled;
@@ -52,22 +52,6 @@ namespace Drift
             }
         }
 
-        private void OnEnable()
-        {
-            reality.DimensionChanged += Changed;
-        }
-
-        private void OnDisable()
-        {
-            reality.DimensionChanged -= Changed;
-        }
-
-        private void Changed(RealityManager.Dimension dimension)
-        {
-            if (reality.CanDrift)
-                pulse = .55f;
-        }
-
         private void Update()
         {
             bool cave = !opening.HasArrived || flow.Phase == GameFlowManager.GamePhase.Returning || flow.Phase == GameFlowManager.GamePhase.EndingWalk || flow.Phase == GameFlowManager.GamePhase.Ending;
@@ -83,9 +67,8 @@ namespace Drift
             RenderSettings.fogEndDistance = cave ? 120f : 390f;
             keyLight.color = cave ? new Color(1f, .81f, .59f) : stable ? new Color(.86f, 1f, .91f) : new Color(1f, .58f, .42f);
             keyLight.intensity = cave ? .55f : stable ? 1.15f : .8f;
-            pulse = Mathf.Max(0f, pulse - Time.deltaTime);
             if (bloom != null)
-                bloom.intensity.value = (cave ? .22f : stable ? .18f : .34f) + pulse * .3f;
+                bloom.intensity.value = cave ? .22f : stable ? .18f : .34f;
             if (colors != null)
             {
                 colors.saturation.value = stable ? -6f : cave ? -12f : -18f;
@@ -93,7 +76,7 @@ namespace Drift
             }
 
             if (chromatic != null)
-                chromatic.intensity.value = pulse * .08f;
+                chromatic.intensity.value = 0f;
             if (escape && !flow.IsPaused)
             {
                 collapseBeat -= Time.deltaTime;

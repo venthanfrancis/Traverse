@@ -15,4 +15,31 @@ MonoBehaviour:
   beats:
   - beat: 1
     lines:
-    - Where am I?
+    - "The way back is blocked. There has to be another exit."
+  - beat: 10
+    lines:
+    - "Two strange objects... The red one is glowing."
+  - beat: 4
+    lines:
+    - "Where am I? That red thing pulled me in."
+    - "Press Q to switch dimensions."
+    - "I need to find a way out."
+  - beat: 5
+    lines:
+    - "The path is different here. But this dimension won't hold for long."
+  - beat: 6
+    lines:
+    - "One anchor is active. Two more to find."
+  - beat: 7
+    lines:
+    - "One more. Maybe these will open a way back."
+  - beat: 8
+    lines:
+    - "The way out is open. I need to reach it!"
+  - beat: 9
+    lines:
+    - "Back in the cave. Now to find the exit."
+  - beat: 11
+    lines:
+    - "Place the block on a plate in Normal. Its echo stays in Broken."
+    - "Move the real block to the other plate, then return to Broken."

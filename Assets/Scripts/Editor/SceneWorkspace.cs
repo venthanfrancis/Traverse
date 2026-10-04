@@ -11,11 +11,42 @@ namespace Drift.Editor
     {
         static SceneWorkspace()
         {
-            EditorApplication.delayCall += Configure;
+            EditorApplication.delayCall += () =>
+            {
+                Configure();
+                for (int i = 0; i < SceneManager.sceneCount; i++)
+                    Preview(SceneManager.GetSceneAt(i), false);
+            };
+            EditorSceneManager.sceneOpened += (scene, mode) =>
+            {
+                RememberScene(scene);
+                Preview(scene, false);
+            };
+            EditorSceneManager.sceneSaving += (scene, path) =>
+            {
+                foreach (GameObject root in scene.GetRootGameObjects())
+                {
+                    Transform normal = root.transform.Find("Environment/NormalWorld");
+                    if (normal != null)
+                        SessionState.SetBool("Drift.NormalPreview." + scene.path, normal.gameObject.activeSelf);
+                }
+                PrepareRoots(scene);
+            };
+            EditorSceneManager.sceneSaved += scene =>
+            {
+                RememberScene(scene);
+                EditorApplication.delayCall += () =>
+                {
+                    Preview(scene, SessionState.GetBool("Drift.NormalPreview." + scene.path, false));
+                };
+            };
             EditorApplication.playModeStateChanged += state =>
             {
                 if (state == PlayModeStateChange.ExitingEditMode)
                     PrepareForPlay();
+                if (state == PlayModeStateChange.EnteredEditMode)
+                    for (int i = 0; i < SceneManager.sceneCount; i++)
+                        Preview(SceneManager.GetSceneAt(i), false);
             };
         }
 
@@ -41,27 +72,18 @@ namespace Drift.Editor
                 Scene scene = SceneManager.GetSceneAt(i);
                 if (scene.name != "MainMenu" && scene.name != "Cave" && scene.name != "BrokenWorld")
                     continue;
-                foreach (GameObject root in scene.GetRootGameObjects())
+                string key = "Drift.SceneTimestamp." + scene.path;
+                string loaded = SessionState.GetString(key, "");
+                bool changedOnDisk = File.Exists(scene.path) && loaded != "" && loaded != File.GetLastWriteTimeUtc(scene.path).Ticks.ToString();
+                PrepareRoots(scene);
+
+                if (!changedOnDisk)
                 {
-                    if (root.name == "SharedSystems" || root.name == "CaveContent" || root.name == "BrokenWorldContent")
-                        root.SetActive(false);
-                    if (root.name == "BrokenWorldContent")
-                        foreach (string name in new[]
-                        {
-                            "BrokenWorld",
-                            "NormalWorld"
-                        }
-
-                        )
-                        {
-                            Transform world = root.transform.Find("Environment/" + name);
-                            if (world != null)
-                                world.gameObject.SetActive(false);
-                        }
+                    EditorSceneManager.MarkSceneDirty(scene);
+                    EditorSceneManager.SaveScene(scene);
                 }
-
-                EditorSceneManager.MarkSceneDirty(scene);
-                EditorSceneManager.SaveScene(scene);
+                else
+                    Debug.LogWarning("Scene changed on disk: reopen " + scene.name + " before editing it. The older loaded copy was not saved.");
             }
 
             Configure();
@@ -71,26 +93,57 @@ namespace Drift.Editor
         public static void Cave() => Edit("Cave");
         [MenuItem("DRIFT/Scenes/Edit Broken World")]
         public static void Broken() => Edit("BrokenWorld");
+        [MenuItem("DRIFT/Scenes/Edit Normal World")]
+        public static void Normal() => Edit("BrokenWorld", true);
         [MenuItem("DRIFT/Scenes/Open Main Menu")]
         public static void Menu() => Edit("MainMenu");
-        private static void Edit(string name)
+        private static void Preview(Scene scene, bool normal)
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode || BuildPipeline.isBuildingPlayer || !scene.isLoaded || (scene.name != "Cave" && scene.name != "BrokenWorld"))
+                return;
+            if (SessionState.GetString("Drift.SceneTimestamp." + scene.path, "") == "")
+                RememberScene(scene);
+            foreach (GameObject root in scene.GetRootGameObjects())
+            {
+                root.SetActive(true);
+                if (scene.name == "BrokenWorld")
+                {
+                    root.transform.Find("Environment/NormalWorld")?.gameObject.SetActive(normal);
+                    root.transform.Find("Environment/BrokenWorld")?.gameObject.SetActive(!normal);
+                }
+            }
+        }
+
+        private static void RememberScene(Scene scene)
+        {
+            if (File.Exists(scene.path))
+                SessionState.SetString("Drift.SceneTimestamp." + scene.path, File.GetLastWriteTimeUtc(scene.path).Ticks.ToString());
+        }
+
+        private static void PrepareRoots(Scene scene)
+        {
+            foreach (GameObject root in scene.GetRootGameObjects())
+            {
+                if (root.name == "SharedSystems" || root.name == "CaveContent" || root.name == "BrokenWorldContent")
+                    root.SetActive(false);
+                if (root.name == "BrokenWorldContent")
+                    foreach (string world in new[] { "NormalWorld", "BrokenWorld" })
+                        root.transform.Find("Environment/" + world)?.gameObject.SetActive(false);
+            }
+        }
+
+        private static void Edit(string name, bool normal = false)
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode)
                 return;
             PrepareForPlay();
             Scene scene = EditorSceneManager.OpenScene("Assets/Scenes/" + name + ".unity");
+            Preview(scene, normal);
             if (name != "MainMenu")
             {
                 foreach (GameObject root in scene.GetRootGameObjects())
                 {
                     root.SetActive(true);
-                    if (name == "BrokenWorld")
-                    {
-                        Transform world = root.transform.Find("Environment/BrokenWorld");
-                        if (world != null)
-                            world.gameObject.SetActive(true);
-                    }
-
                     Selection.activeGameObject = root;
                 }
 
